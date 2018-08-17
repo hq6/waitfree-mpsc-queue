@@ -45,6 +45,13 @@ bool mpscq_enqueue(struct mpscq *q, void *obj);
  * on success */
 void *mpscq_dequeue(struct mpscq *q);
 
+/*
+ * Check if the given object is in the queue. This is safe to call only from
+ * the consumer, and is only guaranteed to return true if the call enqueueing
+ * the given item returned before this method was called.
+ */
+bool mpscq_contains(struct mpscq *q, void *obj);
+
 /* get the number of items in the queue currently */
 size_t mpscq_count(struct mpscq *q);
 

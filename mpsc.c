@@ -69,6 +69,18 @@ void *mpscq_dequeue(struct mpscq *q)
 	return ret;
 }
 
+bool mpscq_contains(struct mpscq *q, void *obj) {
+    size_t count = q->count;
+    size_t head = q->head;
+    for (size_t i = 0; i < count; i++) {
+        size_t index = (head + i) % q->max;
+        if (q->buffer[index] == obj) {
+            return true;
+        }
+    }
+    return false;
+}
+
 size_t mpscq_count(struct mpscq *q)
 {
 	return atomic_load_explicit(&q->count, memory_order_relaxed);
