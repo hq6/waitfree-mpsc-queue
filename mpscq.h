@@ -45,6 +45,12 @@ bool mpscq_enqueue(struct mpscq *q, void *obj);
  * on success */
 void *mpscq_dequeue(struct mpscq *q);
 
+/* Obtain the first item from the queue and return it without removing it from the queue.
+ * THIS IS NOT SAFE TO CALL FROM MULTIPLE THREADS.
+ * Returns NULL on failure, and the item it read
+ * on success */
+void *mpscq_peek(struct mpscq *q);
+
 /*
  * Check if the given object is in the queue. This is safe to call only from
  * the consumer, and is only guaranteed to return true if the call enqueueing

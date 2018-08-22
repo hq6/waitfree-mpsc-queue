@@ -69,6 +69,10 @@ void *mpscq_dequeue(struct mpscq *q)
 	return ret;
 }
 
+void *mpscq_peek(struct mpscq *q) {
+    return atomic_load_explicit(&q->buffer[q->tail], memory_order_acquire);
+}
+
 bool mpscq_contains(struct mpscq *q, void *obj) {
     size_t count = q->count;
     size_t head = q->head;
